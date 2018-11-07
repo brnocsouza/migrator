@@ -18,10 +18,20 @@ class MongoDBClient(BaseDBClient):
         if self.uri is not None:
             self.client = MongoClient(self.uri)
         else:
-            self.client = MongoClient(self.uri)
+            self.client = MongoClient(
+                host=self.host,
+                port=self.port,
+                username=self.user,
+                password=self.password,
+                authSource=self.authSource,
+                authMechanism=self.authMechanism
+            )
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
 
     def __enter__(self):
         self.connect()
+
+    def query_data(self):
+        pass
